@@ -1,0 +1,9 @@
+(executable
+ (name main)
+ (modules ast rust_lexer rust_parser main)
+ (libraries menhirLib))
+
+(menhir
+ (modules rust_parser))
+
+(ocamllex rust_lexer)

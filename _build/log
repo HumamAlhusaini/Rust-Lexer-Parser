@@ -1,0 +1,19 @@
+# dune build
+# OCAMLPARAM: unset
+# Shared cache: enabled-except-user-rules
+# Shared cache location: /home/humam/.cache/dune/db
+# Workspace root: /home/humam/Projects/rsToClight
+# Auto-detected concurrency: 12
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; instrument_with = []
+#  }
+$ /nix/store/zi0w436waypzll05w1fkg9j9dvqihqy3-ocaml-5.2.1/bin/ocamlc.opt -config > /tmp/nix-shell.SSNEw4/dune_83714c_output
+$ (cd _build/default && /nix/store/zi0w436waypzll05w1fkg9j9dvqihqy3-ocaml-5.2.1/bin/ocamllex -q -o bin/rust_lexer.ml bin/rust_lexer.mll)
+> File "bin/rust_lexer.mll", line 1, character 0: syntax error.
+[3]
