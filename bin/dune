@@ -1,6 +1,6 @@
 (executable
  (name main)
- (modules ast rust_lexer rust_parser main)
+ (modules ast_types rust_lexer rust_parser main)
  (libraries menhirLib))
 
 (menhir

@@ -17,7 +17,6 @@
             pkgs.opam
             pkgs.dune_3
             pkgs.ocamlPackages.findlib
-            pkgs.ocamlPackages.lsp
           ];
           };
       }

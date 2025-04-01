@@ -1,19 +1,5 @@
-type token =
-    SEMICOLON
-  | RPAREN
-  | RBRACE
-  | MUT
-  | LPAREN
-  | LET
-  | LBRACE
-  | INT of int
-  | IDENT of string
-  | FN
-  | EQ
-  | EOF
-  | ARROW
+type token = PLUS | INT of int | EOF
 val menhir_begin_marker : int
-val xv_program : Ast.program
-val xv_items : Ast.program
-val xv_item : Ast.item
+val xv_main : int
+val xv_expr : int
 val menhir_end_marker : int

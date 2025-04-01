@@ -1,1 +1,1 @@
-bin/rust_parser__mock.ml.mock: Ast Lexing
+bin/rust_parser__mock.ml.mock: Lexing
