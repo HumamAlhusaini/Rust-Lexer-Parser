@@ -1,9 +1,8 @@
 (executable
  (name main)
- (modules ast_types rust_lexer rust_parser main)
- (libraries menhirLib))
+ (public_name my-app)
+ (modules lexer token main))
 
-(menhir
- (modules rust_parser))
+(ocamllex lexer)
 
-(ocamllex rust_lexer)
+(env (dev (flags (:standard -warn-error -A))))

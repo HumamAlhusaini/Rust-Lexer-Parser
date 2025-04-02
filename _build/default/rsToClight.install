@@ -3,3 +3,6 @@ lib: [
   "_build/install/default/lib/rsToClight/dune-package"
   "_build/install/default/lib/rsToClight/opam"
 ]
+bin: [
+  "_build/install/default/bin/my-app"
+]
