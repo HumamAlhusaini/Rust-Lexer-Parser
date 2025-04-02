@@ -1,4 +1,5 @@
 open Printf
+open Lex
 open Token 
 
 let get_token_list lexbuf =
@@ -35,6 +36,7 @@ let pp_token = function
 
 let main filename =
   try
+    printf "%s\n" filename;
     let ic = open_in filename in
     let lexbuf = Lexing.from_channel ic in
     let token_list = get_token_list lexbuf in
@@ -44,8 +46,4 @@ let main filename =
     eprintf "Error: %s\n" err;
     exit 1
 
-let () =
-  if Array.length Sys.argv <> 2 then
-    eprintf "Usage: %s <filename>\n" Sys.argv.(0)
-  else
-    main Sys.argv.(1)
+let () = main "/home/humam/Projects/rsToClight/test/sample.rs"

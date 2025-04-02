@@ -36,6 +36,7 @@ let pp_token = function
 
 let main filename =
   try
+    printf "%s\n" filename;
     let ic = open_in filename in
     let lexbuf = Lexing.from_channel ic in
     let token_list = get_token_list lexbuf in

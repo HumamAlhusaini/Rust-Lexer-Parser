@@ -1,9 +1,6 @@
 (test
 (name main)
-(action
-  (run main.exe ../test/sample.rs))
-)
-(ocamllex lexer)
+(libraries lex))
 
 (env (dev (flags (:standard -warn-error -A))))
 
