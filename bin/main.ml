@@ -25,6 +25,13 @@ let pp_token = function
   | STRING s -> Printf.sprintf "STRING(%s)" s
   | COMMA -> "COMMA"
   | SEMICOLON -> "SEMICOLON"
+  | COLON -> "COLON"
+  | AMPERSAND -> "AMPERSAND"
+  | STR -> "TYPE STR"
+  | STATIC -> "STATIC"
+  | EQUALS -> "EQUALS"
+  | ISEQUAL -> "ISEQUALS"
+  | PERIOD -> "PERIOD"
 
 let main filename =
   try

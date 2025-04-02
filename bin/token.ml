@@ -1,4 +1,3 @@
-exception SyntaxError of string
 
 type token = 
   | ADD
@@ -16,4 +15,11 @@ type token =
   | STRING of string
   | COMMA
   | SEMICOLON
+  | COLON
+  | AMPERSAND
+  | STR
+  | STATIC
+  | EQUALS
+  | ISEQUAL
+  | PERIOD
 

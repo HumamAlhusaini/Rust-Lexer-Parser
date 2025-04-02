@@ -1,6 +1,17 @@
 {
   open Token
+  open Lexing
+
+exception SyntaxError of string
+
+let next_line lexbuf =
+  let pos = lexbuf.lex_curr_p in
+  lexbuf.lex_curr_p <-
+    { pos with pos_bol = lexbuf.lex_curr_pos;
+               pos_lnum = pos.pos_lnum + 1
+    }
 }
+
 
 let digits = ['0'-'9']+
 let alpha = ['a'-'z' 'A'-'Z']
@@ -16,6 +27,7 @@ rule token = parse
 | digits as lxm {INT (int_of_string lxm)}
 | "fn" { FUNC }
 | '"'  { read_string (Buffer.create 17) lexbuf }
+| "'static"{ STATIC }
 | "(" { LPAREN }
 | ")" { RPAREN }
 | "{" { LBRAC }
@@ -23,6 +35,13 @@ rule token = parse
 | "," { COMMA }
 | "print!" { PRINTF }
 | ";" { SEMICOLON }
+| ":" { COLON }
+| "&" { AMPERSAND }
+| "str" { STR }
+| "//" { read_single_line_comment lexbuf }
+| '=' { EQUALS }
+| "==" { ISEQUAL }
+| '.' { PERIOD }
 | id { ID (Lexing.lexeme lexbuf) }
 | _ { raise ( SyntaxError ("Lexer - Illegal character: " ^ Lexing.lexeme lexbuf)) }
 | eof { EOF }
@@ -36,3 +55,8 @@ and read_string buf = parse
     }
   | _ { raise (SyntaxError ("Illegal string character: " ^ Lexing.lexeme lexbuf)) }
   | eof { raise (SyntaxError ("String is not terminated")) }
+
+and read_single_line_comment = parse
+  | newline { next_line lexbuf; token lexbuf }
+  | eof { EOF }
+  | _ { read_single_line_comment lexbuf }
