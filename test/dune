@@ -1,2 +1,9 @@
 (test
- (name test_rsToClight))
+(name main)
+(action
+  (run main.exe ../test/sample.rs))
+)
+(ocamllex lexer)
+
+(env (dev (flags (:standard -warn-error -A))))
+

@@ -1,4 +1,4 @@
-# dune exec my-app ../test/sample.rs
+# dune test test
 # OCAMLPARAM: unset
 # Shared cache: enabled-except-user-rules
 # Shared cache location: /home/humam/.cache/dune/db
@@ -13,4 +13,4 @@
 #  ; build_dir = In_build_dir "default"
 #  ; instrument_with = []
 #  }
-$ /nix/store/zi0w436waypzll05w1fkg9j9dvqihqy3-ocaml-5.2.1/bin/ocamlc.opt -config > /tmp/nix-shell.HYHCEo/dune_3a4dfb_output
+$ /nix/store/zi0w436waypzll05w1fkg9j9dvqihqy3-ocaml-5.2.1/bin/ocamlc.opt -config > /tmp/nix-shell.ZmbDS4/dune_f99f22_output
