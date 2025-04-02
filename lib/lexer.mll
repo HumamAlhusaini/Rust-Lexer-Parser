@@ -35,7 +35,7 @@ rule token = parse
 | "&&" { AND }
 | "||" { OR }
 | "!"  { NOT }
-| "&"  { AMPERSAND } (* or AMPERSAND, depending on context *)
+| "&"  { AMPERSAND } (* or BAND, depending on context *)
 | "|"  { BOR }
 | "^"  { XOR }
 | "~"  { BNOT }
@@ -71,13 +71,62 @@ rule token = parse
 | '.'  { PERIOD }
 | "let" { LET }
 | "i32" { I32 }
+| "u32" { U32 }
+| "i64" { I64 }
+| "u64" { U64 }
+| "f32" { F32 }
+| "f64" { F64 }
+| "bool" { BOOL }
+| "'" { SINGLE_QUOTE }
+| "mut" { MUT }
+| "if" { IF }
+| "else" { ELSE }
+| "while" { WHILE }
+| "for" { FOR }
+| "in" { IN }
+| "break" { BREAK }
+| "continue" { CONTINUE }
+| "return" { RETURN }
+| "match" { MATCH }
+| "=>" { FAT_ARROW }
+| "_" { UNDERSCORE }
+| "::" { DOUBLE_COLON }
+| "#" { HASH }
+| "@" { AT }
+| "$" { DOLLAR }
+| "?" { QUESTION }
+| "as" { AS }
+| "use" { USE }
+| "crate" { CRATE }
+| "mod" { MOD }
+| "pub" { PUB }
+| "impl" { IMPL }
+| "trait" { TRAIT }
+| "type" { TYPE }
+| "enum" { ENUM }
+| "const" { CONST }
+| "static" { STATIC_KEYWORD } (* to distinguish from 'static lifetime *)
+| "unsafe" { UNSAFE }
+| "extern" { EXTERN }
+| "async" { ASYNC }
+| "await" { AWAIT }
+| "try" { TRY }
+| "box" { BOX }
+| "arc" { ARC }
+| "rc" { RC }
+| "Vec" { VEC }
+| "Option" { OPTION }
+| "Result" { RESULT }
+| "self" { SELF_KEYWORD } (* to distinguish from SELF type *)
+| "super" { SUPER_KEYWORD } (* to distinguish from SUPER type *)
+| "Self" { SELF_TYPE }
 | id   { ID (Lexing.lexeme lexbuf) }
 | _    { raise ( SyntaxError ("Lexer - Illegal character: " ^ Lexing.lexeme lexbuf)) }
 | eof  { EOF }
 
 and read_string buf = parse
-  | '"'       { STRING (Buffer.contents buf) }
-  | '\\' 'n'  { Buffer.add_char buf '\n'; read_string buf lexbuf }
+  | '"'      { STRING (Buffer.contents buf) }
+  | '\\' 'n' { Buffer.add_char buf '\n'; read_string buf lexbuf }
   | [^ '"' '\\']+
     { Buffer.add_string buf (Lexing.lexeme lexbuf);
       read_string buf lexbuf
@@ -89,4 +138,3 @@ and read_single_line_comment = parse
   | newline { next_line lexbuf; token lexbuf }
   | eof { EOF }
   | _ { read_single_line_comment lexbuf }
-

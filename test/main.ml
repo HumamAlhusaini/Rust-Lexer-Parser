@@ -1,6 +1,7 @@
 open Printf
 open Lex
 open Token 
+open Pprinter
 
 let get_token_list lexbuf =
   let rec work acc =
@@ -9,30 +10,6 @@ let get_token_list lexbuf =
     | t -> work (t :: acc)
   in
   List.rev (work [])
-
-let pp_token = function
-  | ADD -> "ADD"
-  | MULT -> "MULT"
-  | INT i -> Printf.sprintf "INT(%d)" i
-  | EOF -> "EOF"
-  | FUNC -> "FUNC"
-  | STRUCT -> "STRUCT"
-  | ID s -> Printf.sprintf "ID(%s)" s
-  | LBRAC -> "LBRAC"
-  | RBRAC -> "RBRAC"
-  | RPAREN -> "RPAREN"
-  | LPAREN -> "LPAREN"
-  | PRINTF -> "PRINTF"
-  | STRING s -> Printf.sprintf "STRING(%s)" s
-  | COMMA -> "COMMA"
-  | SEMICOLON -> "SEMICOLON"
-  | COLON -> "COLON"
-  | AMPERSAND -> "AMPERSAND"
-  | STR -> "TYPE STR"
-  | STATIC -> "STATIC"
-  | EQUALS -> "EQUALS"
-  | ISEQUAL -> "ISEQUALS"
-  | PERIOD -> "PERIOD"
 
 let main filename =
   try
