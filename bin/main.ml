@@ -1,5 +1,6 @@
 open Printf
-open Token 
+open Lex
+open Token
 
 let get_token_list lexbuf =
   let rec work acc =

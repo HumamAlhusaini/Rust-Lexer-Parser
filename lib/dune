@@ -1,2 +1,7 @@
 (library
- (name rsToClight))
+ (name lex)
+ (modules lexer token)
+)
+(ocamllex lexer)
+
+(env (dev (flags (:standard -warn-error -A))))

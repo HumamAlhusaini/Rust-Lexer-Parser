@@ -1,9 +1,8 @@
 (executable
  (name main)
  (public_name my-app)
- (modules lexer token main))
-
-(ocamllex lexer)
+ (modules main)
+ (libraries lex))
 
 (env (dev (flags (:standard -warn-error -A))))
 
