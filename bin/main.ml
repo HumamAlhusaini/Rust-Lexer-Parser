@@ -1,5 +1,5 @@
 open Printf
-open Lexer
+open Token 
 
 let get_token_list lexbuf =
   let rec work acc =
@@ -9,9 +9,26 @@ let get_token_list lexbuf =
   in
   List.rev (work [])
 
+let pp_token = function
+  | ADD -> "ADD"
+  | MULT -> "MULT"
+  | INT i -> Printf.sprintf "INT(%d)" i
+  | EOF -> "EOF"
+  | FUNC -> "FUNC"
+  | STRUCT -> "STRUCT"
+  | ID s -> Printf.sprintf "ID(%s)" s
+  | LBRAC -> "LBRAC"
+  | RBRAC -> "RBRAC"
+  | RPAREN -> "RPAREN"
+  | LPAREN -> "LPAREN"
+  | PRINTF -> "PRINTF"
+  | STRING s -> Printf.sprintf "STRING(%s)" s
+
 let main () =
-  let lexbuf = Lexing.from_string "10 + 2 * 3" in
+  let lexbuf = Lexing.from_string "fn helloWorld() {
+    printf('Hello World')
+    }" in
   let token_list = get_token_list lexbuf in
-  Printf.printf "Length %d\n" (List.length token_list)
+  List.map pp_token token_list |> List.iter (printf "%s\n")
 
 let () = main () (* Add this line to call the main function *)
