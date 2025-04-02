@@ -22,4 +22,34 @@ type token =
   | EQUALS
   | ISEQUAL
   | PERIOD
-
+  | SUB (* - *)
+  | DIV (* / *)
+  | MOD (* % *)
+  | LT  (* < *)
+  | GT  (* > *)
+  | LTE (* <= *)
+  | GTE (* >= *)
+  | NEQ (* != *)
+  | AND (* && *)
+  | OR  (* || *)
+  | NOT (* ! *)
+  | BAND (* & *)
+  | BOR (* | *)
+  | XOR (* ^ *)
+  | BNOT (* ~ *)
+  | LSHIFT (* << *)
+  | RSHIFT (* >> *)
+  | PLUSEQ (* += *)
+  | MINUSEQ (* -= *)
+  | MULTEQ (* *= *)
+  | DIVEQ (* /= *)
+  | MODEQ (* %= *)
+  | BANDEQ (* &= *)
+  | BOREQ (* |= *)
+  | XOREQ (* ^= *)
+  | LSHIFTEQ (* <<= *)
+  | RSHIFTEQ (* >>= *)
+  | TRUE
+  | FALSE
+  | LET
+  | I32

@@ -20,14 +20,43 @@ let whitespace = [' ' '\t']+
 let newline = '\r' | '\n' | "\r\n"
 
 rule token = parse
- [' ' '\t' '\n' '\r']
-    {token lexbuf}
-| '+' {ADD}
-| '*' {MULT}
-| digits as lxm {INT (int_of_string lxm)}
+  [' ' '\t' '\n' '\r'] { token lexbuf }
+| '+'  { ADD }
+| '-'  { SUB }
+| '*'  { MULT }
+| '/'  { DIV }
+| '%'  { MOD }
+| "==" { ISEQUAL }
+| "!=" { NEQ }
+| "<=" { LTE }
+| ">=" { GTE }
+| "<"  { LT }
+| ">"  { GT }
+| "&&" { AND }
+| "||" { OR }
+| "!"  { NOT }
+| "&"  { AMPERSAND } (* or AMPERSAND, depending on context *)
+| "|"  { BOR }
+| "^"  { XOR }
+| "~"  { BNOT }
+| "<<" { LSHIFT }
+| ">>" { RSHIFT }
+| "+=" { PLUSEQ }
+| "-=" { MINUSEQ }
+| "*=" { MULTEQ }
+| "/=" { DIVEQ }
+| "%=" { MODEQ }
+| "&=" { BANDEQ }
+| "|=" { BOREQ }
+| "^=" { XOREQ }
+| "<<=" { LSHIFTEQ }
+| ">>=" { RSHIFTEQ }
+| "true" { TRUE }
+| "false"{ FALSE }
+| digits as lxm { INT (int_of_string lxm) }
 | "fn" { FUNC }
 | '"'  { read_string (Buffer.create 17) lexbuf }
-| "'static"{ STATIC }
+| "'static" { STATIC }
 | "(" { LPAREN }
 | ")" { RPAREN }
 | "{" { LBRAC }
@@ -36,15 +65,15 @@ rule token = parse
 | "print!" { PRINTF }
 | ";" { SEMICOLON }
 | ":" { COLON }
-| "&" { AMPERSAND }
 | "str" { STR }
 | "//" { read_single_line_comment lexbuf }
-| '=' { EQUALS }
-| "==" { ISEQUAL }
-| '.' { PERIOD }
-| id { ID (Lexing.lexeme lexbuf) }
-| _ { raise ( SyntaxError ("Lexer - Illegal character: " ^ Lexing.lexeme lexbuf)) }
-| eof { EOF }
+| '='  { EQUALS }
+| '.'  { PERIOD }
+| "let" { LET }
+| "i32" { I32 }
+| id   { ID (Lexing.lexeme lexbuf) }
+| _    { raise ( SyntaxError ("Lexer - Illegal character: " ^ Lexing.lexeme lexbuf)) }
+| eof  { EOF }
 
 and read_string buf = parse
   | '"'       { STRING (Buffer.contents buf) }
@@ -60,3 +89,4 @@ and read_single_line_comment = parse
   | newline { next_line lexbuf; token lexbuf }
   | eof { EOF }
   | _ { read_single_line_comment lexbuf }
+

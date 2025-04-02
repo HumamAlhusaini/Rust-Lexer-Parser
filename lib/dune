@@ -1,6 +1,6 @@
 (library
  (name lex)
- (modules lexer token)
+ (modules lexer token pprinter)
 )
 (ocamllex lexer)
 
