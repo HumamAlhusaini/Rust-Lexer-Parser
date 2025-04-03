@@ -1,7 +1,8 @@
 (library
  (name lex)
- (modules lexer token pprinter)
+ (modules lexer parser ast)
 )
 (ocamllex lexer)
+(menhir (modules parser))
 
 (env (dev (flags (:standard -warn-error -A))))
