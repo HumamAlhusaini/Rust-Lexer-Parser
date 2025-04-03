@@ -47,10 +47,6 @@ let main filename =
       eprintf "Parsing error\n";
       exit 1
 
-let () =
-  if Array.length Sys.argv <> 2 then
-    eprintf "Usage: %s <filename>\n" Sys.argv.(0)
-  else
-    main "/home/humam/Projects/rsToClight/test/sample.rs"
+let () = main "/home/humam/Projects/rsToClight/test/sample.rs"
 
 
