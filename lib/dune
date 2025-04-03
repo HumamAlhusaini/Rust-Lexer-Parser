@@ -1,6 +1,6 @@
 (library
  (name lex)
- (modules lexer parser ast)
+ (modules lexer parser ast pprinter)
 )
 (ocamllex lexer)
 (menhir (modules parser))

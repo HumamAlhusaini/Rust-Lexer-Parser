@@ -1,6 +1,7 @@
 open Printf
 open Lex
 open Ast
+open Pprinter
 
 let string_list_to_string (lst : string list) (separator : string) : string =
   String.concat separator lst
@@ -27,16 +28,30 @@ let get_token_list lexbuf =
   in
   List.rev (work [])
 
+let print_token_list tokens =
+  printf "Tokens:\n";
+  List.iter (fun token -> printf "%s\n" (pprint_token token)) tokens
+
 let main filename =
   try
-    printf "%s\n" filename;
-    let ic = open_in filename in
-    let lexbuf = Lexing.from_channel ic in
-    let ast = Parser.prog Lexer.token lexbuf in
-    close_in ic;
-    printf "%s\n" (string_of_expr ast);
+    printf "Processing file: %s\n" filename;
 
- with
+    (* First pass: Read and tokenize *)
+    let ic1 = open_in filename in
+    let lexbuf1 = Lexing.from_channel ic1 in
+    let tokens = get_token_list lexbuf1 in
+    close_in ic1; (* Close after lexing *)
+    
+    print_token_list tokens; (* Pretty-print tokens *)
+
+    (* Second pass: Read and parse *)
+    let ic2 = open_in filename in
+    let lexbuf2 = Lexing.from_channel ic2 in
+    let ast = Parser.prog Lexer.token lexbuf2 in
+    close_in ic2; (* Close after parsing *)
+
+    printf "AST: %s\n" (string_of_expr ast);
+  with
   | Sys_error err ->
       eprintf "Error: %s\n" err;
       exit 1
