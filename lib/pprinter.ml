@@ -1,4 +1,6 @@
 open Parser
+open Ast
+open Printf
 
 (* Pretty print function *)
 let pprint_token = function
@@ -109,3 +111,38 @@ let pprint_token = function
   | RAW_STRING s -> Printf.sprintf "RAW_STRING(%s)" s
   | CHAR c -> Printf.sprintf "CHAR(%c)" c
 
+let string_list_to_string (lst : string list) (separator : string) : string =
+  String.concat separator lst
+
+let rec string_of_expr (e : expr) : string =
+  match e with
+  | Func (name, param, body) -> Printf.sprintf "Function(%s) Param(%s) Body{%s}" name (string_list_to_string param ",")  (string_of_expr body)
+  | Int i -> Printf.sprintf "Integer(%d)" i
+  | Print str -> Printf.sprintf "Print(%s)" str
+  | Binop (op, e1, e2) ->
+    let op_str = 
+      match op with
+      | Add -> "+"
+      | Mult -> "*"
+    in
+    Printf.sprintf "Binop(%s, %s, %s)" op_str (string_of_expr e1) (string_of_expr e2)
+
+let string_of_program (prog : program) = 
+  match prog with
+  | Program expr_list -> 
+      (* Use List.fold_left to accumulate the string representation of each expression *)
+      List.fold_left (fun acc expr -> 
+        acc ^ (string_of_expr expr) ^ "\n"  (* Concatenate each string with a newline *)
+      ) "" expr_list 
+
+let get_token_list lexbuf =
+  let rec work acc =
+    match Lexer.token lexbuf with
+    | EOF -> acc
+    | t -> work (t :: acc)
+  in
+  List.rev (work [])
+
+let print_token_list tokens =
+  printf "Tokens:\n";
+  List.iter (fun token -> printf "%s\n" (pprint_token token)) tokens
