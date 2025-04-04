@@ -114,9 +114,11 @@ let pprint_token = function
 let string_list_to_string (lst : string list) (separator : string) : string =
   String.concat separator lst
 
+
 let rec string_of_expr (e : expr) : string =
   match e with
-  | Func (name, param, body) -> Printf.sprintf "Function(%s) Param(%s) Body{%s}" name (string_list_to_string param ",")  (string_of_expr body)
+  | Func (name, param, body) -> Printf.sprintf "Function(%s) Param(%s) Body{%s}"
+  name (string_list_to_string param ",")  (String.concat ", " (List.map string_of_expr body)) 
   | Int i -> Printf.sprintf "Integer(%d)" i
   | Print str -> Printf.sprintf "Print(%s)" str
   | Binop (op, e1, e2) ->

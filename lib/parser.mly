@@ -21,6 +21,6 @@ expr:
     | e1 = expr; ADD; e2 = expr { Binop (Add, e1, e2) }
     | e1 = expr; MULT; e2 = expr { Binop (Mult, e1, e2)}
 | FUNC; e2 = ID; LPAREN; param = separated_list(COMMA, ID); RPAREN;
-    LBRAC; e = expr; RBRAC {Func (e2, param, e)}
+    LBRAC; e = list(expr); RBRAC {Func (e2, param, e)}
     | PRINTF; LPAREN; str = STRING; RPAREN; SEMICOLON {Print str}
 
