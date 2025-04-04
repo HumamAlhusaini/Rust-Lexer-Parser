@@ -2,35 +2,46 @@ open Printf
 open Lex
 open Pprinter
 
+let print_position lexbuf =
+  let pos = lexbuf.Lexing.lex_curr_p in
+  Printf.sprintf "Line %d, Column %d" pos.Lexing.pos_lnum (pos.Lexing.pos_cnum - pos.Lexing.pos_bol)
 
 let main filename =
+  let lexbuf1 = ref None in  (* Mutable reference for lexbuf1 *)
+  let lexbuf2 = ref None in  (* Mutable reference for lexbuf2 *)
   try
-    printf "Processing file: %s\n" filename;
+    Printf.printf "Processing file: %s\n" filename;
 
     (* First pass: Read and tokenize *)
     let ic1 = open_in filename in
-    let lexbuf1 = Lexing.from_channel ic1 in
-    let tokens = get_token_list lexbuf1 in
+    let lb1 = Lexing.from_channel ic1 in
+    lexbuf1 := Some lb1;  (* Store lexbuf1 in ref *)
+    let tokens = get_token_list lb1 in
     close_in ic1; (* Close after lexing *)
-    
+
     print_token_list tokens; (* Pretty-print tokens *)
 
     (* Second pass: Read and parse *)
     let ic2 = open_in filename in
-    let lexbuf2 = Lexing.from_channel ic2 in
-    let ast = Parser.prog Lexer.token lexbuf2 in
+    let lb2 = Lexing.from_channel ic2 in
+    lexbuf2 := Some lb2;  (* Store lexbuf2 in ref *)
+    let ast = Parser.prog Lexer.token lb2 in
     close_in ic2; (* Close after parsing *)
 
-    printf "AST: %s\n" (string_of_program ast);
+    Printf.printf "AST: %s\n" (string_of_program ast);
   with
   | Sys_error err ->
-      eprintf "Error: %s\n" err;
+      Printf.eprintf "Error: %s\n" err;
       exit 1
   | Lexer.SyntaxError msg ->
-      eprintf "Lexing error: %s\n" msg;
+      (match !lexbuf1 with
+       | Some lb -> Printf.eprintf "Lexing error at %s: %s\n" (print_position lb) msg
+       | None -> Printf.eprintf "Lexing error: %s\n" msg);
       exit 1
   | Parser.Error ->
-      eprintf "Parsing error\n";
+      (match !lexbuf2 with
+       | Some lb -> Printf.eprintf "Parsing error at %s\n" (print_position lb)
+       | None -> Printf.eprintf "Parsing error\n");
       exit 1
 
 let () =

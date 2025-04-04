@@ -34,8 +34,6 @@ type literal =
   | IntLit of int
   | BoolLit of bool
 
-type func = 
-  |
 type expr =
   | Int of int
   | Binop of loc * bop * expr * expr
