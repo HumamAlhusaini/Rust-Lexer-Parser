@@ -8,3 +8,4 @@ type expr =
   | Func of string * string list * expr
   | Print of string
 
+type program = Program of expr list

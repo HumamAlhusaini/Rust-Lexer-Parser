@@ -19,6 +19,13 @@ let rec string_of_expr (e : expr) : string =
     in
     Printf.sprintf "Binop(%s, %s, %s)" op_str (string_of_expr e1) (string_of_expr e2)
 
+let string_of_program (prog : program) = 
+  match prog with
+  | Program expr_list -> 
+      (* Use List.fold_left to accumulate the string representation of each expression *)
+      List.fold_left (fun acc expr -> 
+        acc ^ (string_of_expr expr) ^ "\n"  (* Concatenate each string with a newline *)
+      ) "" expr_list 
 
 let get_token_list lexbuf =
   let rec work acc =
@@ -50,7 +57,7 @@ let main filename =
     let ast = Parser.prog Lexer.token lexbuf2 in
     close_in ic2; (* Close after parsing *)
 
-    printf "AST: %s\n" (string_of_expr ast);
+    printf "AST: %s\n" (string_of_program ast);
   with
   | Sys_error err ->
       eprintf "Error: %s\n" err;

@@ -9,18 +9,18 @@ open Ast
 %token <char> CHAR
 
 
-%start <Ast.expr> prog
+%start <Ast.program> prog
 %%
 
 prog:
-    | e = expr; EOF { e }
+    | e = list(expr); EOF { Program e }
     ;
 
 expr:
     | i = INT { Int i }
     | e1 = expr; ADD; e2 = expr { Binop (Add, e1, e2) }
     | e1 = expr; MULT; e2 = expr { Binop (Mult, e1, e2)}
-    | FUNC; e2 = ID; LPAREN; param = separated_list(COMMA, ID); RPAREN;
+| FUNC; e2 = ID; LPAREN; param = separated_list(COMMA, ID); RPAREN;
     LBRAC; e = expr; RBRAC {Func (e2, param, e)}
     | PRINTF; LPAREN; str = STRING; RPAREN; SEMICOLON {Print str}
 
