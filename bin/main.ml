@@ -4,7 +4,8 @@ open Pprinter
 
 let print_position lexbuf =
   let pos = lexbuf.Lexing.lex_curr_p in
-  Printf.sprintf "Line %d, Column %d" pos.Lexing.pos_lnum (pos.Lexing.pos_cnum - pos.Lexing.pos_bol)
+  Printf.sprintf "Line %d, Column %d"
+  pos.Lexing.pos_lnum (pos.Lexing.pos_cnum - pos.Lexing.pos_bol)
 
 let main filename =
   let lexbuf1 = ref None in  (* Mutable reference for lexbuf1 *)

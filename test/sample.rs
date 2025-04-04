@@ -3,6 +3,6 @@ fn main() {
     1+1
 }
 
-fn something(skibidi, toilet) {
+f something(skibidi, toilet) {
     1+1
 }

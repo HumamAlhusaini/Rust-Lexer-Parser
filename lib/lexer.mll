@@ -20,7 +20,8 @@ let whitespace = [' ' '\t']+
 let newline = '\r' | '\n' | "\r\n"
 
 rule token = parse
-  [' ' '\t' '\n' '\r'] { token lexbuf }
+  [' ' '\t' '\r'] { token lexbuf }
+| '\n' { Lexing.new_line lexbuf; token lexbuf }
 | '+'  { ADD }
 | '-'  { SUB }
 | '*'  { MULT }
