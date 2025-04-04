@@ -1,3 +1,6 @@
+(** Stores the line and position of the token *)
+type loc = Lexing.position
+
 type bop = 
   | Add
   | Minus
@@ -31,19 +34,21 @@ type literal =
   | IntLit of int
   | BoolLit of bool
 
+type func = 
+  |
+type expr =
+  | Int of int
+  | Binop of loc * bop * expr * expr
+  | Func of loc * string * string list * expr list
+  | Print of loc * string
+
 type stmt =
-  | If of expr * stmt * stmt option
-  | While of expr * stmt
+  | If of loc * expr * stmt * stmt option
+  | While of loc * expr * stmt
   | Break
   | Continue
   | Return of expr option
   | ExprStmt of expr
-  | Let of string * typ * expr
-
-type expr =
-  | Int of int
-  | Binop of bop * expr * expr
-  | Func of string * string list * expr list
-  | Print of string
+  | Let of loc * string * typ * expr
 
 type program = Program of expr list

@@ -37,6 +37,7 @@ rule token = parse
 | "!"  { NOT }
 | "&"  { AMPERSAND } (* or BAND, depending on context *)
 | "|"  { BOR }
+| '"' {read_string (Buffer.create 17) lexbuf}
 | "^"  { XOR }
 | "~"  { BNOT }
 | "<<" { LSHIFT }
