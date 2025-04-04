@@ -24,11 +24,10 @@ type bop =
 type assign_op =
   | Assign
   | AddEq | SubEq | MultEq | DivEq | ModEq
-  | BitAndEq | BitOrEq | BitXorEq | LshiftEq | RshiftEq
+  
 
 type typ =
-  | TInt32 | TInt64 | TUint32 | TUint64
-  | TFloat32 | TFloat64 | TBool
+  | TInt32 | TInt64 | TUint32 | TUint64 | TFloat32 | TFloat64 | TBool
 
 type literal = 
   | IntLit of int
@@ -47,6 +46,7 @@ type stmt =
   | Continue
   | Return of expr option
   | ExprStmt of expr
-  | Let of loc * string * typ * expr
+  | Let of loc * string
+  | Let_type of loc * string * typ
 
 type program = Program of expr list

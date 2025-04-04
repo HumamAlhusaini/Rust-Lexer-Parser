@@ -20,7 +20,7 @@ let pprint_token = function
   | AMPERSAND -> "AMPERSAND"
   | STR -> "STR"
   | STATIC -> "STATIC"
-  | EQUALS -> "EQUALS"
+  | EQ -> "EQUALS"
   | ISEQUAL -> "ISEQUAL"
   | PERIOD -> "PERIOD"
   | SUB -> "SUB"

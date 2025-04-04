@@ -64,7 +64,7 @@ rule token = parse
 | "," { COMMA }
 | "print!" { PRINTF }
 | ";" { SEMICOLON }
-| "="  { EQUALS }
+| "="  { EQ }
 | "."  { PERIOD }
 | "let" { LET }
 | "i32" { I32 }
