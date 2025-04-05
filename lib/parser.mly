@@ -2,13 +2,21 @@
 open Ast
 %}
 
-%token ADD MULT EOF FUNC STRUCT LBRAC RBRAC RPAREN LPAREN PRINTF COMMA SEMICOLON COLON 
-AMPERSAND STR STATIC EQ ISEQUAL PERIOD SUB DIV MOD LT GT LTE GTE NEQ AND OR NOT BAND
-BOR XOR BNOT LSHIFT RSHIFT PLUSEQ MINUSEQ MULTEQ DIVEQ MODEQ BANDEQ BOREQ XOREQ LSHIFTEQ 
-RSHIFTEQ TRUE FALSE LET I32 U32 I64 U64 F32 F64 BOOL MUT IF ELSE WHILE FOR IN BREAK CONTINUE
-E RETURN MATCH ARM FAT_ARROW UNDERSCORE DOUBLE_COLON SINGLE_QUOTE HASH AT DOLLAR QUESTION 
-AS USE CRATE PUB IMPL TRAIT TYPE ENUM CONST STATIC_KEYWORD UNSAFE EXTERN ASYNC AWAIT TRY
-BOX ARC RC VEC OPTION RESULT SELF SUPER SELF_KEYWORD SUPER_KEYWORD SELF_TYPE
+%token ADD MULT SUB DIV MOD         
+%token EQ                           
+%token LT GT LTE GTE ISEQUAL NEQ    
+%token AND OR NOT                   
+%token LPAREN RPAREN LBRAC RBRAC    
+%token COMMA SEMICOLON              
+%token FUNC                         
+%token STRUCT                       
+%token RETURN                       
+%token IF ELSE                      
+%token WHILE                        
+%token LET                          
+%token I32 F64 BOOL                 
+%token TRUE FALSE                   
+%token EOF                          
 
 %token <int> INT
 %token <string> ID STRING RAW_STRING
@@ -59,10 +67,9 @@ binoperands:
     | b = FALSE { Bool false}
 
 
-(*    Statement :
-          ;
+(*    Statement:
        | Item
-       | LetStatement
+       | LET * ID * 
        | ExpressionStatement
        | MacroInvocationSemi
 *)
