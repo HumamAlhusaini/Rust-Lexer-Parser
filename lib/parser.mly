@@ -42,13 +42,19 @@ binop:
   | LSHIFT { Lshift }
   | RSHIFT { Rshift }
 
-
 expr:
-    | i = INT { Int i }
-    | e1 = expr; bin = binop; e2 = expr { Binop ($startpos, bin, e1, e2)}
     | FUNC; e = ID; LPAREN; param = separated_list(COMMA, ID); RPAREN;
     LBRAC; e1 = list(expr); RBRAC {Func ($startpos, e, param, e1)}
     | m = macro { m }
+    | b1 = binoperands; bin = binop; b2 = binoperands { Binop ($startpos, bin, b1, b2) }
+
 macro:
 |  PRINTF; LPAREN; str = STRING; RPAREN; SEMICOLON {Print ($startpos, str)}
+
+binoperands:
+    | i = ID { Id i }
+    | i = INT { Int i }
+    | str = STRING { String str }
+    | b = TRUE { Bool true}
+    | b = FALSE { Bool false}
 

@@ -33,11 +33,19 @@ type literal =
   | IntLit of int
   | BoolLit of bool
 
+type binoperands =
+  | Id of string                      (* Identifiers *)
+  | Int of int                        (* Integer literals *)
+  | String of string                  (* String literals *)
+  | Float of float                    (* Floating-point literals *)
+  | Bool of bool                      (* Boolean literals *)
+  | Char of char                      (* Character literals *)
+
 type expr =
   | Int of int
-  | Binop of loc * bop * expr * expr
   | Func of loc * string * string list * expr list
   | Print of loc * string
+  | Binop of loc * bop * binoperands * binoperands
 
 type stmt =
   | If of loc * expr * stmt * stmt option
@@ -48,5 +56,6 @@ type stmt =
   | ExprStmt of expr
   | Let of loc * string
   | Let_type of loc * string * typ
+
 
 type program = Program of expr list

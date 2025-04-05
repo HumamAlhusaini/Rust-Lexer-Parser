@@ -114,6 +114,15 @@ let pprint_token = function
 let string_list_to_string (lst : string list) (separator : string) : string =
   String.concat separator lst
 
+let operant_to_string (opand : binoperands) = 
+  match opand with
+  | Id i -> i
+  | Int i -> string_of_int i
+  | String i -> i
+  | Float i -> string_of_float i
+  | Bool i -> string_of_bool i
+  | Char i -> String.make 1 i
+
 let rec string_of_expr (e : expr) : string =
   match e with
   | Func (loc, name, param, body) -> Printf.sprintf "LOC: %d Function(%s) Param(%s) Body{%s}"
@@ -124,9 +133,12 @@ let rec string_of_expr (e : expr) : string =
     let op_str = 
       match op with
       | Add -> "+"
+      | Minus -> "-"
       | Mult -> "*"
+      | Div -> "/"
     in
-    Printf.sprintf "Binop(%d, %s, %s, %s)" loc.pos_lnum op_str (string_of_expr e1) (string_of_expr e2)
+    Printf.sprintf "Binop(%d, %s, %s, %s)"
+    loc.pos_lnum op_str (operant_to_string e1) (operant_to_string e2)
 
 let string_of_program (prog : program) = 
   match prog with
