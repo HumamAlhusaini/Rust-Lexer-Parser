@@ -58,3 +58,85 @@ binoperands:
     | b = TRUE { Bool true}
     | b = FALSE { Bool false}
 
+
+(*    Statement :
+          ;
+       | Item
+       | LetStatement
+       | ExpressionStatement
+       | MacroInvocationSemi
+*)
+
+(*
+    Syntax:
+    Item:
+       OuterAttribute*
+          VisItem
+       | MacroItem
+
+    VisItem:
+       Visibility?
+       (
+             Module
+          | ExternCrate
+          | UseDeclaration
+          | Function
+          | TypeAlias
+          | Struct
+          | Enumeration
+          | Union
+          | ConstantItem
+          | StaticItem
+          | Trait
+          | Implementation
+          | ExternBlock
+       )
+
+    MacroItem:
+          MacroInvocationSemi
+       | MacroRulesDefinition
+ *)
+
+(*
+Expression :
+      ExpressionWithoutBlock
+   | ExpressionWithBlock
+
+ExpressionWithoutBlock :
+   OuterAttribute*†
+   (
+         LiteralExpression
+      | PathExpression
+      | OperatorExpression
+      | GroupedExpression
+      | ArrayExpression
+      | AwaitExpression
+      | IndexExpression
+      | TupleExpression
+      | TupleIndexingExpression
+      | StructExpression
+      | CallExpression
+      | MethodCallExpression
+      | FieldExpression
+      | ClosureExpression
+      | AsyncBlockExpression
+      | ContinueExpression
+      | BreakExpression
+      | RangeExpression
+      | ReturnExpression
+      | UnderscoreExpression
+      | MacroInvocation
+   )
+
+ExpressionWithBlock :
+   OuterAttribute*†
+   (
+         BlockExpression
+      | ConstBlockExpression
+      | UnsafeBlockExpression
+      | LoopExpression
+      | IfExpression
+      | IfLetExpression
+      | MatchExpression
+   )
+ *)

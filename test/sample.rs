@@ -4,5 +4,5 @@ fn main() {
 }
 
 fn something(skibidi, toilet) {
-    1+1
+    true+true
 }
